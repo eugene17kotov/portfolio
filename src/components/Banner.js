@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import headerImg from '../assets/img/header-img.svg';
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import { HashLink } from 'react-router-hash-link';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
@@ -45,7 +45,7 @@ export const Banner = () => {
     }, [text, delta, isDeleting]);
 
     return (
-        <Router>
+        // <Router>
             <section className="banner" id="home">
                 <Container>
                     <Row className="aligh-items-center">
@@ -100,6 +100,6 @@ export const Banner = () => {
                     </Row>
                 </Container>
             </section>
-        </Router>
+        // </Router>
     );
 };

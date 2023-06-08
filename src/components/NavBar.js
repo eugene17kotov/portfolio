@@ -6,7 +6,7 @@ import linkedinIcon from '../assets/img/linkedin.svg';
 import facebookIcon from '../assets/img/facebook.svg';
 import instagramIcon from '../assets/img/instagram.svg';
 import { HashLink } from 'react-router-hash-link';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 
 export const NavBar = () => {
     const [activeLink, setActiveLink] = useState('home');
@@ -31,7 +31,7 @@ export const NavBar = () => {
     };
 
     return (
-        <Router>
+        // <Router>
             <Navbar expand="md" className={scrolled ? 'scrolled' : ''}>
                 <Container>
                     <Navbar.Brand href="/" className="navbar-link">
@@ -110,6 +110,6 @@ export const NavBar = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        </Router>
+        // </Router>
     );
 };
