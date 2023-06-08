@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { ProjectCard } from './ProjectCard';
-import slimmom from '../assets/img/slimmom.jpg';
+import slimmom from '../assets/img/slimmom.avif';
 import filmoteka from '../assets/img/filmoteka.avif';
 import phonebook from '../assets/img/phonebook.avif';
 import weather from '../assets/img/weather.avif';
