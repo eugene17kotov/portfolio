@@ -5,43 +5,55 @@ import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.baseURL = 'https://portfolio-api-h9rp.onrender.com';
 
 export const Contact = () => {
-    const formInitialDetails = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        message: '',
-    };
-    const [formDetails, setFormDetails] = useState(formInitialDetails);
-    const [buttonText, setButtonText] = useState('Send');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [status, setStatus] = useState({});
 
-    const onFormUpdate = (category, value) => {
-        setFormDetails({
-            ...formDetails,
-            [category]: value,
-        });
-    };
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors, isValid },
+        reset,
+    } = useForm({
+        mode: 'onBlur',
+    });
 
-    const handleSubmit = async e => {
-        e.preventDefault();
-        setButtonText('Sending...');
-        let response = await axios.post('/contact', formDetails);
-        setButtonText('Send');
-        setFormDetails(formInitialDetails);
+    const firstName = watch('firstName');
+    const lastName = watch('lastName');
+    const email = watch('email');
+    const phone = watch('phone');
+    const message = watch('message');
 
-        if (response.data.code === 200) {
-            setStatus({ succes: true, message: 'Message sent successfully' });
-            toast.success(status.message);
-        } else {
+    const onSubmitForm = async formData => {
+        setIsSubmitting(true);
+
+        try {
+            let response = await axios.post('/contact', formData);
+
+            if (response.data.code === 200) {
+                setStatus({ succes: true, message: 'Message sent successfully' });
+                toast.success(status.message);
+            } else {
+                setStatus({
+                    succes: false,
+                    message: 'Something went wrong, please try again later.',
+                });
+                toast.error(status.message);
+            }
+        } catch (error) {
+            console.error(error);
             setStatus({ succes: false, message: 'Something went wrong, please try again later.' });
             toast.error(status.message);
         }
+
+        setIsSubmitting(false);
+        reset();
     };
 
     return (
@@ -66,59 +78,150 @@ export const Contact = () => {
                                     className={isVisible ? 'animate__animated animate__fadeIn' : ''}
                                 >
                                     <h2>Get In Touch</h2>
-                                    <form onSubmit={handleSubmit}>
+                                    <form onSubmit={handleSubmit(onSubmitForm)}>
                                         <Row>
                                             <Col size={12} sm={6} className="px-1">
                                                 <input
+                                                    value={firstName}
                                                     type="text"
-                                                    value={formDetails.firstName}
                                                     placeholder="First Name"
-                                                    onChange={e =>
-                                                        onFormUpdate('firstName', e.target.value)
+                                                    aria-invalid={
+                                                        errors.firstName ? 'true' : 'false'
                                                     }
+                                                    {...register('firstName', {
+                                                        required: 'Please, enter your name',
+                                                        minLength: {
+                                                            value: 2,
+                                                            message:
+                                                                'First name must be at least 2 characters',
+                                                        },
+                                                        maxLength: {
+                                                            value: 25,
+                                                            message:
+                                                                'First name must not exceed 25 characters',
+                                                        },
+                                                    })}
                                                 />
+                                                {errors?.firstName && (
+                                                    <p className="error-message">
+                                                        {errors?.firstName?.message}
+                                                    </p>
+                                                )}
                                             </Col>
                                             <Col size={12} sm={6} className="px-1">
                                                 <input
                                                     type="text"
-                                                    value={formDetails.lastName}
+                                                    value={lastName}
                                                     placeholder="Last Name"
-                                                    onChange={e =>
-                                                        onFormUpdate('lastName', e.target.value)
+                                                    aria-invalid={
+                                                        errors.lastName ? 'true' : 'false'
                                                     }
+                                                    {...register('lastName', {
+                                                        required: 'Please, enter your surname',
+                                                        minLength: {
+                                                            value: 2,
+                                                            message:
+                                                                'Last name must be at least 2 characters',
+                                                        },
+                                                        maxLength: {
+                                                            value: 25,
+                                                            message:
+                                                                'Last name must not exceed 25 characters',
+                                                        },
+                                                    })}
                                                 />
+                                                {errors?.lastName && (
+                                                    <p className="error-message">
+                                                        {errors?.lastName?.message}
+                                                    </p>
+                                                )}
                                             </Col>
                                             <Col size={12} sm={6} className="px-1">
                                                 <input
                                                     type="email"
-                                                    value={formDetails.email}
+                                                    value={email}
                                                     placeholder="Email Address"
-                                                    onChange={e =>
-                                                        onFormUpdate('email', e.target.value)
-                                                    }
+                                                    aria-invalid={errors.email ? 'true' : 'false'}
+                                                    {...register('email', {
+                                                        required: 'Please, enter your email',
+                                                        pattern: {
+                                                            value: /^([A-Za-z0-9_-]+\.)*[A-Za-z0-9_-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*\.[A-Za-z]{2,6}$/,
+                                                            message: 'Email format is incorrect',
+                                                        },
+                                                        minLength: {
+                                                            value: 3,
+                                                            message:
+                                                                'Email must be at least 2 characters',
+                                                        },
+                                                        maxLength: {
+                                                            value: 100,
+                                                            message:
+                                                                'Email must not exceed 100 characters',
+                                                        },
+                                                    })}
                                                 />
+                                                {errors?.email && (
+                                                    <p className="error-message">
+                                                        {errors?.email?.message}
+                                                    </p>
+                                                )}
                                             </Col>
                                             <Col size={12} sm={6} className="px-1">
                                                 <input
                                                     type="tel"
-                                                    value={formDetails.phone}
+                                                    value={phone}
                                                     placeholder="Phone No."
-                                                    onChange={e =>
-                                                        onFormUpdate('phone', e.target.value)
-                                                    }
+                                                    aria-invalid={errors.phone ? 'true' : 'false'}
+                                                    {...register('phone', {
+                                                        required: 'Please, enter your phone',
+                                                        pattern: {
+                                                            value: /^(?:\+38)?\s?0\d{9}$/,
+                                                            message: 'Phone format is incorrect',
+                                                        },
+                                                        minLength: {
+                                                            value: 10,
+                                                            message:
+                                                                'Phone must be at least 10 characters',
+                                                        },
+                                                        maxLength: {
+                                                            value: 13,
+                                                            message:
+                                                                'Phone must not exceed 13 characters',
+                                                        },
+                                                    })}
                                                 />
+                                                {errors?.phone && (
+                                                    <p className="error-message">
+                                                        {errors?.phone?.message}
+                                                    </p>
+                                                )}
                                             </Col>
                                             <Col size={12} className="px-1">
                                                 <textarea
                                                     rows="6"
-                                                    value={formDetails.message}
+                                                    type="text"
+                                                    value={message}
                                                     placeholder="Message"
-                                                    onChange={e =>
-                                                        onFormUpdate('message', e.target.value)
-                                                    }
+                                                    {...register('message', {
+                                                        maxLength: {
+                                                            value: 1000,
+                                                            message:
+                                                                'The message must not exceed 1000 characters',
+                                                        },
+                                                    })}
                                                 ></textarea>
-                                                <button type="submit">
-                                                    <span>{buttonText}</span>
+                                                {errors?.message && (
+                                                    <p className="error-message">
+                                                        {errors?.message?.message}
+                                                    </p>
+                                                )}
+                                                <button
+                                                    type="submit"
+                                                    disabled={!isValid && !isSubmitting}
+                                                >
+                                                    <span>
+                                                        {isSubmitting ? 'Sending...' : 'Send'}
+                                                    </span>
                                                 </button>
                                             </Col>
                                         </Row>

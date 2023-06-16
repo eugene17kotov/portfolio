@@ -569,6 +569,34 @@ nav.navbar .navbar-toggler[aria-expanded='true'] .navbar-toggler-icon {
     width: 100%;
 }
 
+/************ disabled button **********/
+
+.contact form button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.contact form button[disabled]:hover {
+    color: #000;
+}
+
+.contact form button[disabled]::before {
+    background: transparent;
+}
+
+.contact form button[disabled] span {
+    z-index: 2;
+}
+
+.contact .error-message {
+    text-align: center;
+    color: #ec6e9a;
+}
+.contact .error-message::before {
+    display: inline;
+    content: '⚠ ';
+}
+
 /************ Footer Css ************/
 .footer {
     padding: 20px 0 20px 0;
