@@ -17,6 +17,7 @@ const projects = [
         description:
             '- helps balancing diet for weight loss📉, store your nutrition🗒, advices you unwholesome group of food🛑🍔',
         imgUrl: slimmom,
+        projectUrl: 'https://github.com/eugene17kotov/slimmom-app',
     },
     {
         title: '🎞 Filmoteka 📽',
@@ -24,12 +25,14 @@ const projects = [
         description:
             '- the best choice to figure out all one about movie which you interested in and latest news🗞 from the world of cinema✅',
         imgUrl: filmoteka,
+        projectUrl: 'https://github.com/eugene17kotov/filmoteka',
     },
     {
         title: '📱 PhoneBook 📖',
         technologies: 'React, JSS',
         description: '- helps store and organize your contacts 📖',
         imgUrl: phonebook,
+        projectUrl: 'https://github.com/eugene17kotov/phonebook',
     },
     {
         title: '🌦️ Weather 🌡️',
@@ -37,13 +40,15 @@ const projects = [
         description:
             '- a vanilla JS based weather app used a proxy on Node.js to access the weather API',
         imgUrl: weather,
+        projectUrl: 'https://github.com/eugene17kotov/weather-app-js',
     },
     {
         title: '🖼️Image Generator🧠 ',
-        technologies: 'JavaScript, Handlebars',
+        technologies: 'Node.JS, Handlebars',
         description:
             '- image generator based on OpenAI power 🖥️, implemented with Node.js and a template engine Handlebars.js〰️',
         imgUrl: imageGenerator,
+        projectUrl: 'https://github.com/eugene17kotov/ai-image-generator',
     },
     {
         title: '🍧IceCream 📃',
@@ -51,6 +56,7 @@ const projects = [
         description:
             '- a single page example of team website layout project used HTML5, SASS, vanilla JS and Parcel module bundler',
         imgUrl: iceCream,
+        projectUrl: 'https://github.com/eugene17kotov/icecream',
     },
 ];
 

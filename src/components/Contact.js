@@ -21,7 +21,7 @@ export const Contact = () => {
         formState: { errors, isValid },
         reset,
     } = useForm({
-        mode: 'onBlur',
+        mode: 'onChange',
     });
 
     const firstName = watch('firstName');
@@ -102,9 +102,9 @@ export const Contact = () => {
                                                         },
                                                     })}
                                                 />
-                                                {errors?.firstName && (
-                                                    <p className="error-message">
-                                                        {errors?.firstName?.message}
+                                                {errors.firstName && (
+                                                    <p role="alert" className="error-message">
+                                                        {errors.firstName?.message}
                                                     </p>
                                                 )}
                                             </Col>
@@ -130,9 +130,9 @@ export const Contact = () => {
                                                         },
                                                     })}
                                                 />
-                                                {errors?.lastName && (
-                                                    <p className="error-message">
-                                                        {errors?.lastName?.message}
+                                                {errors.lastName && (
+                                                    <p role="alert" className="error-message">
+                                                        {errors.lastName?.message}
                                                     </p>
                                                 )}
                                             </Col>
@@ -148,11 +148,6 @@ export const Contact = () => {
                                                             value: /^([A-Za-z0-9_-]+\.)*[A-Za-z0-9_-]+@[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*\.[A-Za-z]{2,6}$/,
                                                             message: 'Email format is incorrect',
                                                         },
-                                                        minLength: {
-                                                            value: 3,
-                                                            message:
-                                                                'Email must be at least 2 characters',
-                                                        },
                                                         maxLength: {
                                                             value: 100,
                                                             message:
@@ -160,9 +155,9 @@ export const Contact = () => {
                                                         },
                                                     })}
                                                 />
-                                                {errors?.email && (
-                                                    <p className="error-message">
-                                                        {errors?.email?.message}
+                                                {errors.email && (
+                                                    <p role="alert" className="error-message">
+                                                        {errors.email?.message}
                                                     </p>
                                                 )}
                                             </Col>
@@ -190,9 +185,9 @@ export const Contact = () => {
                                                         },
                                                     })}
                                                 />
-                                                {errors?.phone && (
-                                                    <p className="error-message">
-                                                        {errors?.phone?.message}
+                                                {errors.phone && (
+                                                    <p role="alert" className="error-message">
+                                                        {errors.phone?.message}
                                                     </p>
                                                 )}
                                             </Col>
@@ -202,6 +197,7 @@ export const Contact = () => {
                                                     type="text"
                                                     value={message}
                                                     placeholder="Message"
+                                                    aria-invalid={errors.message ? 'true' : 'false'}
                                                     {...register('message', {
                                                         maxLength: {
                                                             value: 1000,
@@ -210,9 +206,9 @@ export const Contact = () => {
                                                         },
                                                     })}
                                                 ></textarea>
-                                                {errors?.message && (
-                                                    <p className="error-message">
-                                                        {errors?.message?.message}
+                                                {errors.message && (
+                                                    <p role="alert" className="error-message">
+                                                        {errors.message?.message}
                                                     </p>
                                                 )}
                                                 <button

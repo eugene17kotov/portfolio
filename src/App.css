@@ -59,6 +59,10 @@ ul {
     text-decoration: none !important;
 }
 
+a {
+    color: white !important;
+}
+
 a:hover {
     text-decoration: none;
 }
